@@ -7,21 +7,8 @@ const URL = 'https://world.openfoodfacts.org/api/v0/product/'
 
 export default class Barcode extends Component {
     scanBarcode(data) {
-        alert();
+        getName(data.data);
     }
-
-    componentDidMount() {
-        axios
-            .get('https://world.openfoodfacts.org/api/v0/product/5449000058386.json')
-            .then(function scanBarcode (data) {
-                console.log('*************WOOOOOOOO**************************************');
-                alert(data.product.product_name);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
     render() {
         return (
             <Camera
@@ -32,6 +19,17 @@ export default class Barcode extends Component {
             </Camera>
         );
     }
+}
+
+function getName (EAN) {
+  axios
+      .get(`https://world.openfoodfacts.org/api/v0/product/${EAN}.json`)
+      .then(function scanBarcode (data) {
+          alert(`${data.data.product.product_name} (${EAN})`);
+      })
+      .catch(function (error) {
+          alert(`PRODUCT ${EAN} DOES NOT EXIST`);
+      });
 }
 
 const styles = StyleSheet.create({
