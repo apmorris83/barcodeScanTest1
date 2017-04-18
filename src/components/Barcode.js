@@ -4,7 +4,7 @@ import Camera from 'react-native-camera';
 
 export default class Barcode extends Component {
     scanBarcode(data) {
-        alert('scanned barcode');
+        alert(data.data);
     }
     render() {
         return (
