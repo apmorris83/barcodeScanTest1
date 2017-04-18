@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/Entypo';
 import Camera from 'react-native-camera';
 import axios from 'axios';
 
-const URL = 'https://world.openfoodfacts.org/api/v0/product/'
+const cameraIcon = (<Icon name="camera" size={30} />)
+
+const ROOT = 'https://world.openfoodfacts.org/api/v0/product/';
 
 export default class Barcode extends Component {
     scanBarcode(data) {
@@ -16,6 +19,7 @@ export default class Barcode extends Component {
                 style={styles.preview}
                 onBarCodeRead={code => this.scanBarcode(code)}
                 aspect={Camera.constants.Aspect.fill}>
+                <Text style={styles.capture}>{cameraIcon}</Text>
             </Camera>
         );
     }
@@ -23,12 +27,12 @@ export default class Barcode extends Component {
 
 function getName (EAN) {
   axios
-      .get(`https://world.openfoodfacts.org/api/v0/product/${EAN}.json`)
+      .get(`${ROOT}/${EAN}`)
       .then(function scanBarcode (data) {
-          alert(`${data.data.product.product_name} (${EAN})`);
+        alert(`${data.data.product.product_name} (${EAN}) Packaging: ${data.data.product.packaging}`);
       })
       .catch(function (error) {
-          alert(`PRODUCT ${EAN} DOES NOT EXIST`);
+        alert(`PRODUCT ${EAN} DOES NOT EXIST`);
       });
 }
 
@@ -42,5 +46,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: Dimensions.get('window').height,
         width: Dimensions.get('window').width
-    }
+    },
+  capture: {
+    flex: 0,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    color: '#000',
+    padding: 10,
+    margin: 40
+  }
 });

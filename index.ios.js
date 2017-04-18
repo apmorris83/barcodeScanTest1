@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
-import Barcode from './src/components/Barcode';
+import App from './src/index';
 
-export default class barcodeScanTest1 extends Component {
-  render() {
-    return (
-      <Barcode />
-    );
-  }
-}
-
-AppRegistry.registerComponent('barcodeScanTest1', () => barcodeScanTest1);
+AppRegistry.registerComponent('barcodeScanTest1', () => App);
