@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
 import { StyleSheet, Dimensions } from 'react-native';
 import Camera from 'react-native-camera';
+import axios from 'axios';
+
+const URL = 'https://world.openfoodfacts.org/api/v0/product/'
 
 export default class Barcode extends Component {
     scanBarcode(data) {
-        alert(data.data);
+        alert();
     }
+
+    componentDidMount() {
+        axios
+            .get('https://world.openfoodfacts.org/api/v0/product/5449000058386.json')
+            .then(function scanBarcode (data) {
+                console.log('*************WOOOOOOOO**************************************');
+                alert(data.product.product_name);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
     render() {
         return (
             <Camera
@@ -13,7 +29,7 @@ export default class Barcode extends Component {
                 style={styles.preview}
                 onBarCodeRead={code => this.scanBarcode(code)}
                 aspect={Camera.constants.Aspect.fill}>
-                </Camera>
+            </Camera>
         );
     }
 }
