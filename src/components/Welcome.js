@@ -16,6 +16,9 @@ export default class Welcome extends Component {
   render () {
     return (
       <View style={styles.container}>
+        <View>
+          <Text>Hello</Text>
+        </View>
         <Icon.Button name="camera" onPress={this.onPressHome.bind(this)}>
           <Text style={styles.buttonScan}>H</Text>
         </Icon.Button>

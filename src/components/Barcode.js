@@ -3,10 +3,12 @@ import { StyleSheet, Dimensions, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import Camera from 'react-native-camera';
 import axios from 'axios';
+import Prompt from 'react-native-prompt';
 
 const cameraIcon = (<Icon name="camera" size={30} />)
 
 const ROOT = 'https://world.openfoodfacts.org/api/v0/product/';
+const POSTROOT = 'https://world.openfoodfacts.org/cgi/product_jqm2.pl';
 
 export default class Barcode extends Component {
     scanBarcode(data) {
@@ -32,7 +34,7 @@ function getName (EAN) {
         alert(`${data.data.product.product_name} (${EAN}) Packaging: ${data.data.product.packaging}`);
       })
       .catch(function (error) {
-        alert(`PRODUCT ${EAN} DOES NOT EXIST`);
+        axios.get(`${POSTROOT}?code=${EAN}&product_name=Test`).then((data) => {alert(`Product ${EAN} added as Test`)}).catch((err) => alert(err));
       });
 }
 
