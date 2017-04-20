@@ -3,6 +3,8 @@ import { Text, View, Navigator } from 'react-native';
 
 import Welcome from './components/Welcome';
 import Barcode from './components/Barcode';
+import Calendar from './components/Calendar';
+import Map from './components/Map';
 
 export default class App extends Component {
   render() {
@@ -18,6 +20,10 @@ export default class App extends Component {
         return (<Welcome navigator={navigator} title='Welcome'/>);
       case 'Barcode':
         return (<Barcode navigator={navigator} title='Barcode'/>);
+      case 'Calendar':
+        return (<Calendar navigator={navigator} title='Calendar'/>);
+      case 'Map':
+        return (<Map navigator={navigator} title='Map'/>);
     }
   }
 }

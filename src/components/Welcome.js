@@ -3,9 +3,9 @@ import { StyleSheet, Text, View, Navigator } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 
 export default class Welcome extends Component {
-  onPressHome () {
+  onPressCal () {
     this.props.navigator.push({
-      id: 'Welcome'
+      id: 'Calendar'
     })
   }
   onPressBarcode () {
@@ -13,17 +13,22 @@ export default class Welcome extends Component {
       id: 'Barcode'
     })
   }
+  onPressMap () {
+    this.props.navigator.push({
+      id: 'Map'
+    })
+  }
   render () {
     return (
       <View style={styles.container}>
-        <View>
-          <Text>Hello</Text>
-        </View>
-        <Icon.Button name="camera" onPress={this.onPressHome.bind(this)}>
-          <Text style={styles.buttonScan}>H</Text>
-        </Icon.Button>
         <Icon.Button name="camera" onPress={this.onPressBarcode.bind(this)}>
-          <Text style={styles.buttonScan}>B</Text>
+          <Text style={styles.buttonScan}>Barcode</Text>
+        </Icon.Button>
+        <Icon.Button name="calendar" onPress={this.onPressCal.bind(this)}>
+          <Text style={styles.buttonScan}>Calendar</Text>
+        </Icon.Button>
+        <Icon.Button name="map" onPress={this.onPressMap.bind(this)}>
+          <Text style={styles.buttonScan}>Map</Text>
         </Icon.Button>
       </View>
     )
@@ -33,9 +38,10 @@ export default class Welcome extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'row',
+        // flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'flex-end',
+        alignItems: 'center',
+        // alignItems: 'flex-end',
     },
     buttonScan: {
       fontFamily: 'Arial',

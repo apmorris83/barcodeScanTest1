@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions, Text } from 'react-native';
+import { StyleSheet, Dimensions, Text, Model, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import Camera from 'react-native-camera';
 import axios from 'axios';
@@ -31,13 +31,23 @@ function getName (EAN) {
   axios
       .get(`${ROOT}/${EAN}`)
       .then(function scanBarcode (data) {
-        console.log(data.data.products[0].name);
         alert(`${data.data.products[0].name} (${EAN}) Packaging: ${data.data.products[0].packaging}`);
       })
       .catch(function (error) {
-        alert(error);
-        // axios.get(`${POSTROOT}?code=${EAN}&product_name=Test`).then((data) => {alert(`Product ${EAN} added as Test`)}).catch((err) => alert(err));
-      });
+        // alert('Hello')
+        postProduct(EAN);
+    });
+}
+
+function postProduct (EAN) {
+  axios
+    .post(ROOT, {
+      code: EAN,
+      name: 'Test',
+      packaging: 'Test Packaging'
+    })
+    .then((data) => {alert(`Product ${EAN} added as Test`)})
+    .catch((err) => {alert(`Product ${EAN} already in Database - Please scan again!`)});
 }
 
 const styles = StyleSheet.create({
